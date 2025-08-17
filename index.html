@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Rawad Deeb – CFD Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.min.js"></script>
+</head>
+<body>
+  <!-- Background -->
+  <canvas id="bg"></canvas>
+
+  <!-- Header -->
+  <header>
+    <div class="logo">CFD Portfolio</div>
+    <nav>
+      <ul>
+        <li><a href="#work" data-key="work">Work</a></li>
+        <li><a href="#articles" data-key="articles">Articles</a></li>
+        <li><a href="#gallery" data-key="gallery">Gallery</a></li>
+        <li><a href="#contact" data-key="contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="lang-switch">
+      <button onclick="setLang('en')">EN</button> | 
+      <button onclick="setLang('ru')">RU</button>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1 data-key="hero-title">Heat & Mass Transfer CFD Simulations</h1>
+    <p data-key="hero-text">Professional portfolio in computational fluid dynamics.</p>
+    <a href="#contact" class="cta" data-key="hero-cta">Request a Simulation Meeting</a>
+  </section>
+
+  <!-- Work -->
+  <section id="work">
+    <h2 data-key="work">Work</h2>
+    <div class="content">
+      <p data-key="work-text">Experience in advanced CFD modeling, focusing on heat exchangers, multiphase flows, and thermal systems.</p>
+    </div>
+  </section>
+
+  <!-- Articles -->
+  <section id="articles">
+    <h2 data-key="articles">Articles</h2>
+    <div class="content">
+      <ul>
+        <li>2024 – Drop-shaped tubes in heat exchangers</li>
+        <li>2023 – CFD modeling of condensation</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section id="gallery">
+    <h2 data-key="gallery">Gallery</h2>
+    <div class="gallery-grid">
+      <img src="assets/photos/sample1.jpg" alt="CFD Simulation">
+      <video src="assets/videos/sample1.mp4" controls></video>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <h2 data-key="contact">Contact</h2>
+    <p data-key="contact-text">Interested in collaboration or requesting a simulation?</p>
+    <a href="mailto:your.email@example.com" class="cta" data-key="contact-cta">Get in Touch</a>
+  </section>
+
+  <footer>
+    <p>© 2025 Rawad Deeb | CFD Portfolio</p>
+  </footer>
+
+  <script src="background.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
