@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>CFD Portfolio – Rawad Deeb</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <canvas id="bg"></canvas>
+
+  <header class="site-header">
+    <div class="logo">
+      <img src="assets/logo.png" alt="Logo" />
+      <span>CFD Portfolio</span>
+    </div>
+    <nav>
+      <button onclick="switchLang('en')">EN</button>
+      <button onclick="switchLang('ru')">RU</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section id="hero">
+      <img src="assets/profile.jpg" alt="Profile" class="profile-pic" />
+      <h1 data-i18n="hero.title">Computational Fluid Dynamics</h1>
+      <p data-i18n="hero.subtitle">Heat & Mass Transfer · Simulation</p>
+      <a href="#contact" class="cta" data-i18n="hero.cta">Request Simulation Meeting</a>
+    </section>
+
+    <!-- Work -->
+    <section id="work">
+      <h2 data-i18n="work.title">Work Experience</h2>
+      <ul>
+        <li><strong>2023 – Present:</strong> Engineer, MPEI, Moscow</li>
+        <li><strong>2024 – Present:</strong> Chief CFD Specialist, Research Institute</li>
+      </ul>
+    </section>
+
+    <!-- Articles -->
+    <section id="articles">
+      <h2 data-i18n="articles.title">Scientific Articles</h2>
+      <p data-i18n="articles.text">List of publications by year.</p>
+    </section>
+
+    <!-- Gallery -->
+    <section id="gallery">
+      <h2 data-i18n="gallery.title">Gallery</h2>
+      <div class="gallery-grid">
+        <figure>
+          <img src="assets/heat-exchanger.jpg" alt="Heat Exchangers" />
+          <figcaption>Рисунок 3. Теплообменники</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/propeller.jpg" alt="Propellers" />
+          <figcaption>Рисунок 4. Воздушные винты</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/heatmass1.jpg" alt="Heat & Mass Transfer" />
+          <figcaption>Рисунок 5. Тепломассообмен и гидродинамика</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/heatmass2.jpg" alt="Heat & Mass Transfer" />
+          <figcaption>Рисунок 6. Тепломассообмен и гидродинамика</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/surfing.jpg" alt="Surfing" />
+          <figcaption>Рисунок 7. Серфинг</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/strength.jpg" alt="Strength" />
+          <figcaption>Рисунок 8. Прочность</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/reactor.jpg" alt="Reactor" />
+          <figcaption>Рисунок 9. Реактор с перемешивающим устройством</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/burner.jpg" alt="Burner" />
+          <figcaption>Рисунок 10. Горелка</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/ejector.jpg" alt="Ejector" />
+          <figcaption>Рисунок 11. Эжектор</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/nozzle.jpg" alt="Nozzle" />
+          <figcaption>Рисунок 12. Фарсунка</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+      <h2 data-i18n="contact.title">Contact</h2>
+      <p>Email: <a href="mailto:rawad.deeb@example.com">rawad.deeb@example.com</a></p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Rawad Deeb – CFD Portfolio</p>
+  </footer>
+
+  <script src="lang.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
