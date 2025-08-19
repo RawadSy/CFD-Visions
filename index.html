@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>CFD Portfolio – Rawad Deeb</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="CFD Portfolio — Heat & Mass Transfer, Fluid Dynamics, Shell-and-Tube Heat Exchangers, ANSYS-based simulations." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Dynamic Shell-and-Tube background -->
+  <canvas id="bg" aria-hidden="true"></canvas>
+
+  <header class="site-header">
+    <div class="brand">
+      <img class="brand__logo" src="assets/logo.png" alt="Logo" />
+      <div class="brand__title">CFD Portfolio</div>
+    </div>
+    <nav class="nav">
+      <a href="#education" data-i18n="nav.education">Образование</a>
+      <a href="#work" data-i18n="nav.work">Опыт</a>
+      <a href="#awards" data-i18n="nav.awards">Грамоты</a>
+      <a href="#events" data-i18n="nav.events">Мероприятия</a>
+      <a href="#gallery" data-i18n="nav.gallery">Галерея</a>
+      <a href="#contact" data-i18n="nav.contact">Контакты</a>
+      <button class="lang-btn" id="langEN" aria-label="Switch to English">EN</button>
+      <button class="lang-btn" id="langRU" aria-label="Переключить на русский">RU</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section id="hero" class="card card--hero">
+      <img src="assets/profile.jpg" alt="Profile Photo" class="hero__photo" />
+      <div class="hero__text">
+        <h1 data-i18n="hero.title">Вычислительная гидродинамика</h1>
+        <p data-i18n="hero.subtitle">Тепломассообмен · Гидродинамика · Моделирование</p>
+        <a class="cta" href="#contact" data-i18n="hero.cta">Запросить встречу по симуляции</a>
+      </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section id="education" class="card">
+      <h2 data-i18n="edu.title">Образование</h2>
+      <ul class="list">
+        <li data-i18n="edu.1">
+          2008 – 2013  Бакалавр общей механики «диплом с отличием», университет Дамаска, Дамаск, Сирия.
+        </li>
+        <li data-i18n="edu.2">
+          2013 – 2015 Магистр теплотехники, университет Дамаска, Дамаск, Сирия.
+        </li>
+        <li data-i18n="edu.3">
+          2016 – 2018 Магистр теплофизики и теплоэнергетики «диплом с отличием», МЭИ, Москва, Россия.
+        </li>
+        <li data-i18n="edu.4">
+          2018 – 2022 Аспирант теплофизики и теоретической теплотехники, МЭИ, Москва, Россия.
+        </li>
+        <li data-i18n="edu.5">
+          2023 Кандидат технический наук — теплофизика и теоретическая теплотехника, МЭИ, Москва, Россия.
+        </li>
+      </ul>
+    </section>
+
+    <!-- WORK EXPERIENCE -->
+    <section id="work" class="card">
+      <h2 data-i18n="work.title">Опыт работы</h2>
+      <div class="work-block">
+        <h3>2013 – 2015 <span data-i18n="work.pos1">Ассистент — Университет Дамаска, Сирия</span></h3>
+        <ol class="list--ol">
+          <li data-i18n="work.pos1.i1">Экспериментальные и численные исследования (EES, ANSYS, MathCad, MATLAB, AutoCAD).</li>
+          <li data-i18n="work.pos1.i2">Расчёты/лабораторные работы по тепломассопереносу, гидродинамике, турбинам, HVAC.</li>
+        </ol>
+      </div>
+      <div class="work-block">
+        <h3>2018 – 2023 <span data-i18n="work.pos2">Ассистент — МЭИ, Москва, Россия</span></h3>
+      </div>
+      <div class="work-block">
+        <h3>2023 – н.в. <span data-i18n="work.pos3">Старший преподаватель — МЭИ, Москва, Россия</span></h3>
+        <ol class="list--ol">
+          <li data-i18n="work.pos3.i1">Лабораторные занятия по «Тепломассообмен и гидродинамика» (бакалавры/магистры).</li>
+          <li data-i18n="work.pos3.i2">Консультирование курсовых по «Тепломассообмен и гидродинамика».</li>
+          <li data-i18n="work.pos3.i3">Обучение расчётам в ANSYS.</li>
+        </ol>
+      </div>
+      <div class="work-block">
+        <h3>2018 – 2021 <span data-i18n="work.pos4">Реализация практических проектов (Мосэнерго, Красный котельщик)</span></h3>
+      </div>
+      <div class="work-block">
+        <h3>2021 – н.в. <span data-i18n="work.pos5">Рецензент 16 журналов («Physics of Fluids», «IJHMT», …)</span></h3>
+      </div>
+      <div class="work-block">
+        <h3>2023 – н.в. <span data-i18n="work.pos6">Инженер 2 категории — МЭИ, Москва, Россия</span></h3>
+      </div>
+      <div class="work-block">
+        <h3>2024 – н.в. <span data-i18n="work.pos7">Главный специалист CFD — НИПИ карбамида, Москва, Россия</span></h3>
+      </div>
+
+      <h3 class="mt" data-i18n="work.interests.title">Некоторые из моих экспериментальных и численных интересов:</h3>
+      <ul class="list two-cols">
+        <li data-i18n="work.i1">Тепломассообмен</li>
+        <li data-i18n="work.i2">Гидродинамика</li>
+        <li data-i18n="work.i3">Ламинарные течения</li>
+        <li data-i18n="work.i4">Турбулентные течения (завихрения)</li>
+        <li data-i18n="work.i5">Серфинг (Surfing)</li>
+        <li data-i18n="work.i6">Разработка теплообменников</li>
+        <li data-i18n="work.i7">Испытание на прочность</li>
+        <li data-i18n="work.i8">Воздушные винты (самолёты)</li>
+        <li data-i18n="work.i9">2D и 3D моделирование</li>
+        <li data-i18n="work.i10">Горение</li>
+        <li data-i18n="work.i11">Стационарные и нестационарные задачи</li>
+        <li data-i18n="work.i12">Однофазные и двухфазные системы</li>
+        <li data-i18n="work.i13">Масштабирование реактора с мешалкой</li>
+        <li data-i18n="work.i14">Эжекторы и инжекторы</li>
+        <li data-i18n="work.i15">Фарсунки</li>
+      </ul>
+    </section>
+
+    <!-- HONORS -->
+    <section id="awards" class="card">
+      <h2 data-i18n="awards.title">Почетные грамоты</h2>
+      <ol class="list--ol">
+        <li data-i18n="awards.1">Пять дипломов Баселя Аль-Асада лучшему выпускнику (2008–2013, Университет Дамаска).</li>
+        <li data-i18n="awards.2">Благодарственное письмо + Грамота за отличную учёбу в магистратуре (2018, МЭИ).</li>
+        <li data-i18n="awards.3">Четыре почётных диплома I/II степени, МНТК «Радиоэлектроника, электротехника и энергетика» (2019–2021, МЭИ).</li>
+        <li data-i18n="awards.4">Две грамоты за III место в конкурсе стихов, Олимпиада по РКИ (2018–2019, МЭИ).</li>
+        <li data-i18n="awards.5">Диплом III степени, II Международная онлайн-олимпиада по РКИ (2020, СПбГУ).</li>
+        <li data-i18n="awards.6">Диплом II степени, IV Международная онлайн-олимпиада по РКИ (2023, СПбГУ).</li>
+        <li data-i18n="awards.7">Награда Президента Сирии за научные публикации (2023, Сирия).</li>
+      </ol>
+    </section>
+
+    <!-- EVENTS -->
+    <section id="events" class="card">
+      <h2 data-i18n="events.title">Участие в научных и культурных мероприятиях</h2>
+      <ul class="list">
+        <li data-i18n="events.1">Участие в международных научных конференциях (2016 – н.в.).</li>
+        <li data-i18n="events.2">Международный форум «Российская энергетическая неделя» (2017, Москва).</li>
+        <li data-i18n="events.3">Выставка «Культура моей страны (Сирии)» (2017–2019, МЭИ).</li>
+        <li data-i18n="events.4">Культурный конкурс «Лучшее национальное блюдо» (2018, МЭИ).</li>
+        <li data-i18n="events.5">Очный/заочный курс для ресурсных центров РФ по дисциплине «Физика» (2020, частная школа «Аль-Ассея», Дамаск).</li>
+        <li data-i18n="events.6">Онлайн-курсы по 20+ предметам (2020 – н.в.).</li>
+      </ul>
+    </section>
+
+    <!-- GALLERY -->
+    <section id="gallery" class="card">
+      <h2 data-i18n="gallery.title">Галерея</h2>
+      <div class="gallery-grid" id="galleryGrid">
+        <figure>
+          <img src="assets/heat-exchanger.jpg" alt="Рис.3 Теплообменники" />
+          <figcaption>Рис. 3. Теплообменники</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/propeller.jpg" alt="Рис.4 Воздушные винты" />
+          <figcaption>Рис. 4. Воздушные винты</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/heatmass1.jpg" alt="Рис.5 Тепломассообмен и гидродинамика" />
+          <figcaption>Рис. 5. Тепломассообмен и гидродинамика</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/heatmass2.jpg" alt="Рис.6 Тепломассообмен и гидродинамика" />
+          <figcaption>Рис. 6. Тепломассообмен и гидродинамика</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/surfing.jpg" alt="Рис.7 Серфинг" />
+          <figcaption>Рис. 7. Серфинг</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/strength.jpg" alt="Рис.8 Прочность" />
+          <figcaption>Рис. 8. Прочность</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/reactor.jpg" alt="Рис.9 Реактор с перемешивающим устройством" />
+          <figcaption>Рис. 9. Реактор с перемешивающим устройством</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/burner.jpg" alt="Рис.10 Горелка" />
+          <figcaption>Рис. 10. Горелка</figcaption>
+        </figure>
+      </div>
+      <!-- Lightbox -->
+      <div id="lightbox" class="lightbox" aria-hidden="true">
+        <button id="lbClose" class="lightbox__close" aria-label="Close">×</button>
+        <button id="lbPrev" class="lightbox__nav prev" aria-label="Previous">‹</button>
+        <img id="lbImg" src="" alt="" />
+        <button id="lbNext" class="lightbox__nav next" aria-label="Next">›</button>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="card card--contact">
+      <h2 data-i18n="contact.title">Контакты</h2>
+      <p data-i18n="contact.text">Интересует сотрудничество или встреча для обсуждения симуляции?</p>
+      <a class="cta" href="mailto:rawad.deeb@example.com" data-i18n="contact.cta">Написать письмо</a>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>© 2025 Rawad Deeb — CFD Portfolio</p>
+  </footer>
+
+  <script src="lang.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
