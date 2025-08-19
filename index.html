@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>CFD Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <canvas id="bg"></canvas>
+
+  <!-- Header + Navbar -->
+  <header class="site-header">
+    <div class="logo">
+      <img src="assets/logo.png" alt="Logo">
+      <span>CFD Portfolio</span>
+    </div>
+    <nav>
+      <button onclick="switchLang('ru')">RU</button>
+      <button onclick="switchLang('en')">EN</button>
+      <button onclick="showSection('education')">Образование</button>
+      <button onclick="showSection('work')">Опыт работы</button>
+      <button onclick="showSection('awards')">Грамоты</button>
+      <button onclick="showSection('events')">Мероприятия</button>
+      <button onclick="showSection('gallery')">Галерея</button>
+      <button onclick="showSection('contact')">Контакты</button>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <main>
+    <section id="hero">
+      <img src="assets/profile.jpg" alt="Profile" class="profile-pic">
+      <h1 data-i18n="hero.title">Вычислительная гидродинамика</h1>
+      <p data-i18n="hero.subtitle">Тепломассообмен · Симуляция</p>
+      <a href="#" onclick="showSection('contact')" class="cta" data-i18n="hero.cta">Запросить встречу</a>
+    </section>
+  </main>
+
+  <!-- Sections (hidden by default) -->
+  <div id="sections-container">
+    <section id="education" class="page-section" style="display:none;">
+      <h2 data-i18n="education.title">Образование</h2>
+      <p data-i18n="education.text">Здесь информация об образовании...</p>
+    </section>
+
+    <section id="work" class="page-section" style="display:none;">
+      <h2 data-i18n="work.title">Опыт работы</h2>
+      <p data-i18n="work.text">Опыт работы и проекты...</p>
+    </section>
+
+    <section id="awards" class="page-section" style="display:none;">
+      <h2 data-i18n="awards.title">Почетные грамоты</h2>
+      <p data-i18n="awards.text">Дипломы, награды...</p>
+    </section>
+
+    <section id="events" class="page-section" style="display:none;">
+      <h2 data-i18n="events.title">Мероприятия</h2>
+      <p data-i18n="events.text">Конференции, публикации...</p>
+    </section>
+
+    <section id="gallery" class="page-section" style="display:none;">
+      <h2 data-i18n="gallery.title">Галерея</h2>
+      <p data-i18n="gallery.text">Фотографии и CFD-визуализации...</p>
+    </section>
+
+    <section id="contact" class="page-section" style="display:none;">
+      <h2 data-i18n="contact.title">Контакты</h2>
+      <p data-i18n="contact.text">Email: example@mail.com</p>
+    </section>
+  </div>
+
+  <script src="lang.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
