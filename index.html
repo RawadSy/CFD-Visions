@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Streamlines — Flow Around Tube</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site-header">
+<div class="brand">CFD Streamlines</div>
+<nav class="modes">
+<button data-mode="cylinder" class="active">Flow Around Cylinder</button>
+<button data-mode="array">Tube Bundle</button>
+</nav>
+<div class="controls">
+<label>U∞ <input id="uInf" type="range" min="20" max="320" value="120"/></label>
+<label>Particles <input id="nPar" type="range" min="200" max="1600" value="800"/></label>
+</div>
+</header>
+
+
+<main>
+<canvas id="sim"></canvas>
+
+
+<!-- Side quick-controls -->
+<div class="side-controls" aria-hidden>
+<div class="group">
+<div class="title">Speed</div>
+<button id="uDec" class="side-btn">−</button>
+<button id="uInc" class="side-btn">+</button>
+</div>
+<div class="group">
+<div class="title">Streamlines</div>
+<button id="nDec" class="side-btn">−</button>
+<button id="nInc" class="side-btn">+</button>
+</div>
+</div>
+
+
+<aside class="legend">
+<div>Speed magnitude</div>
+<div class="bar"></div>
+<div class="ticks"><span>low</span><span>high</span></div>
+</aside>
+</main>
+
+
+<footer>
+<small>Interact: use side + / − buttons to change free-stream speed and number of streamlines. Colors ~ |V|.</small>
+</footer>
+
+
+<script src="lang.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
