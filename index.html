@@ -1,0 +1,215 @@
+Below are the four files. Copy each block into its file name.
+
+---
+index.html
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Streamlines Animation — Shell & Tube • Flow Around Cylinder</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand">CFD Streamlines</div>
+    <nav class="modes">
+      <button data-mode="cylinder" class="active">Flow Around Cylinder</button>
+      <button data-mode="shell">Shell & Tube</button>
+    </nav>
+    <div class="controls">
+      <label>U∞ <input id="uInf" type="range" min="20" max="220" value="120"/></label>
+      <label>Particles <input id="nPar" type="range" min="200" max="1600" value="800"/></label>
+    </div>
+  </header>
+
+  <main>
+    <canvas id="sim"></canvas>
+    <aside class="legend">
+      <div>Speed magnitude</div>
+      <div class="bar"></div>
+      <div class="ticks"><span>low</span><span>high</span></div>
+    </aside>
+  </main>
+
+  <footer>
+    <small>Streamlines visualize potential flow fields. Colors ~ |V|. Obstacles are impermeable cylinders.</small>
+  </footer>
+
+  <script src="lang.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
+```
+
+---
+style.css
+```css
+*{box-sizing:border-box}html,body{height:100%}body{margin:0;background:#05070b;color:#fff;font-family:Inter,Segoe UI,Roboto,Arial,sans-serif;overflow:hidden}
+.site-header{position:fixed;inset:0 0 auto 0;display:flex;gap:1rem;align-items:center;justify-content:space-between;padding:.6rem 1rem;background:linear-gradient(180deg,rgba(0,0,0,.55),rgba(0,0,0,.15));backdrop-filter:blur(6px);z-index:10}
+.brand{font-weight:800;letter-spacing:.4px}
+.modes button{margin-right:.4rem;border:1px solid rgba(255,255,255,.25);background:transparent;color:#fff;padding:.45rem .7rem;border-radius:8px;cursor:pointer}
+.modes button.active{background:linear-gradient(90deg,#2dd4ff,#a78bfa);border-color:transparent;color:#001}
+.controls{display:flex;align-items:center;gap:1rem}
+.controls label{display:flex;align-items:center;gap:.4rem;font-size:.9rem;color:#cbd5e1}
+.controls input[type=range]{accent-color:#60a5fa}
+#sim{position:fixed;inset:0;width:100%;height:100%;display:block;z-index:0}
+.legend{position:fixed;right:12px;bottom:12px;background:rgba(0,0,0,.35);padding:.6rem .7rem;border-radius:10px;font-size:.85rem;backdrop-filter:blur(4px);z-index:5}
+.legend .bar{width:200px;height:10px;border-radius:6px;background:linear-gradient(90deg,#0ea5e9,#22d3ee,#fde047,#f97316,#ef4444);margin-top:.4rem}
+.legend .ticks{display:flex;justify-content:space-between;font-size:.7rem;color:#cbd5e1}
+footer{position:fixed;left:0;right:0;bottom:0;font-size:.8rem;color:#94a3b8;display:flex;justify-content:center;padding:.4rem;background:linear-gradient(0deg,rgba(0,0,0,.35),transparent);z-index:4}
+```
+
+---
+script.js
+```javascript
+/* Streamlines Animation — 2 modes: single cylinder, shell-&-tube bundle
+   Numerical model: steady 2D potential flow (uniform stream + sum of cylinder doublets)
+   Integration: semi-implicit Euler with small jitter for path diversity.
+*/
+
+const canvas = document.getElementById('sim');
+const ctx = canvas.getContext('2d');
+let W, H, dpr;
+function resize(){ dpr = Math.max(1, window.devicePixelRatio||1); W = canvas.width = Math.floor(innerWidth*dpr); H = canvas.height = Math.floor(innerHeight*dpr); canvas.style.width = innerWidth+'px'; canvas.style.height = innerHeight+'px'; } resize();
+addEventListener('resize', resize);
+
+// UI
+const modeButtons = document.querySelectorAll('.modes button');
+let MODE = 'cylinder';
+modeButtons.forEach(b=>b.addEventListener('click',()=>{modeButtons.forEach(x=>x.classList.remove('active')); b.classList.add('active'); MODE = b.dataset.mode; resetParticles(); setupScene();}));
+const uSlider = document.getElementById('uInf');
+const nSlider = document.getElementById('nPar');
+
+// Scene parameters
+let U = 120; // px/s at dpr=1
+let cylinders = []; // {x,y,R}
+
+function setupScene(){
+  U = +uSlider.value; // base speed
+  cylinders = [];
+  const cx = W*0.5, cy = H*0.5;
+  const scale = Math.min(W,H);
+
+  if(MODE==='cylinder'){
+    const R = 0.14*scale; // radius px
+    cylinders.push({x:cx, y:cy, R});
+  } else {
+    // Shell & Tube: square/triangular array
+    const cols = 6, rows = 5; // bundle size
+    const pitch = 0.16*scale/rows; // spacing
+    const R = 0.028*scale; // tube radius
+    const x0 = W*0.28, y0 = H*0.30;
+    for(let j=0;j<rows;j++){
+      for(let i=0;i<cols;i++){
+        const offset = (j%2===0?0: pitch*0.55); // staggered (triangular pitch)
+        cylinders.push({x:x0 + i*pitch*1.25 + offset, y:y0 + j*pitch, R});
+      }
+    }
+  }
+}
+setupScene();
+
+// Velocity field: superposition of uniform stream + ideal flow around each cylinder
+function velField(x,y){
+  // convert to physical coords (already in px)
+  let vx = U, vy = 0; // uniform free stream to the right
+  // add circulation-free cylinder effects (doublet method)
+  for(const c of cylinders){
+    const dx = x - c.x, dy = y - c.y;
+    const r2 = dx*dx + dy*dy; const r = Math.sqrt(r2) + 1e-6;
+    const a2 = c.R*c.R;
+    // In polar relative to cylinder center
+    const cosT = dx / r, sinT = dy / r;
+    const Vr = U*cosT * (1 - a2/r2);
+    const Vt = -U*sinT * (1 + a2/r2);
+    // Convert to Cartesian and subtract uniform part to avoid double-counting
+    const vxc = Vr*cosT - Vt*sinT;
+    const vyc = Vr*sinT + Vt*cosT;
+    // Blend near cylinder to keep impermeability and avoid infinite values
+    // Weighting: use influence minus uniform
+    vx += (vxc - U); vy += (vyc - 0);
+    // Small repulsive core to keep particles outside solid
+    const repel = Math.max(0, 1 - r/c.R);
+    if(repel>0){ vx += (dx/r) * repel * 60; vy += (dy/r) * repel * 60; }
+  }
+  return {vx, vy};
+}
+
+// Particles (tracers)
+let N = +nSlider.value; let parts=[];
+function resetParticles(){
+  N = +nSlider.value; parts = new Array(N).fill(0).map(()=>seedParticle());
+}
+function seedParticle(){
+  // seed on the left boundary or around inflow band
+  const pad = 20*dpr; const y = Math.random()*H; const x = -pad - Math.random()*200*dpr; return {x,y,px:x,py:y,life:0};
+}
+resetParticles();
+
+uSlider.addEventListener('input',()=>{U=+uSlider.value});
+nSlider.addEventListener('input',()=>{resetParticles()});
+
+// Coloring by |V|
+function speedColor(v){
+  // map speed to 0..1
+  const s = Math.max(0, Math.min(1, v/ (U*1.8) ));
+  const r = Math.floor(255*Math.max(0, (s-0.5)*2));
+  const g = Math.floor(255*(1-Math.abs(s-0.5)*2));
+  const b = Math.floor(255*Math.max(0, (0.5-s)*2));
+  return `rgba(${r},${g},${b},0.9)`;
+}
+
+function insideAnyCylinder(x,y){
+  for(const c of cylinders){ const dx=x-c.x, dy=y-c.y; if(dx*dx+dy*dy < (c.R*0.98)**2) return true; } return false;
+}
+
+// Render loop
+let last=performance.now();
+function tick(now){
+  const dt = Math.min(0.033, (now-last)/1000); last=now;
+  // fade for trails
+  ctx.fillStyle = 'rgba(0,0,0,0.10)'; ctx.fillRect(0,0,W,H);
+
+  // draw cylinders
+  ctx.save();
+  ctx.globalAlpha = 0.9;
+  for(const c of cylinders){
+    ctx.beginPath(); ctx.fillStyle='rgba(255,255,255,0.06)'; ctx.arc(c.x,c.y,c.R,0,Math.PI*2); ctx.fill();
+    ctx.strokeStyle='rgba(255,255,255,0.12)'; ctx.lineWidth=1*dpr; ctx.stroke();
+  }
+  ctx.restore();
+
+  // particles
+  ctx.lineWidth = Math.max(0.6, 0.9*dpr);
+  for(let p of parts){
+    const v1 = velField(p.x,p.y);
+    const s1 = Math.hypot(v1.vx, v1.vy);
+    // semi-implicit Euler (a.k.a. symplectic Euler) + jitter
+    const jx = (Math.random()-0.5)*6, jy=(Math.random()-0.5)*6;
+    const nx = p.x + (v1.vx + jx)*dt; const ny = p.y + (v1.vy + jy)*dt;
+
+    if(nx>W+40*dpr || ny>H+40*dpr || nx<-60*dpr || ny<-40*dpr || insideAnyCylinder(nx,ny)){
+      Object.assign(p, seedParticle());
+      continue;
+    }
+
+    ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(nx,ny); ctx.strokeStyle = speedColor(s1); ctx.stroke();
+
+    p.px=p.x; p.py=p.y; p.x=nx; p.y=ny; p.life++;
+    if(p.life>1200) Object.assign(p, seedParticle());
+  }
+
+  requestAnimationFrame(tick);
+}
+requestAnimationFrame(tick);
+```
+
+---
+lang.js
+```javascript
+// (Optional) i18n hook — simple demo if you want future multilingual labels
+// Currently not switching text, but kept for compatibility.
+console.log('lang.js loaded');
+```
